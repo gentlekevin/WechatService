@@ -9,18 +9,20 @@ public interface WechatDao {
     public JSONArray fetchData();
 
     // 一级菜单 数据交互
-    public boolean addFirstMenu(String content, int type, String answer);
+    public boolean addFirstMenu(String content, int type, String answer, String sequence);
     public boolean deleteFirstMenu(int id);
-    public boolean updateFirstMenu(String content, int type, String answer, int id);
+    public boolean updateFirstMenu(String content, int type, String answer, int id, String sequence);
     public List<Map<String, Object>> getAllFirstMenu();
     public List<Map<String, Object>> getFirstMenuById(int id);
+    public boolean menu1ContainsSequence(String sequence);
 
     // 二级菜单 数据交互
-    public boolean addSecondMenu(int category_id, String content, int type, String answer);
+    public boolean addSecondMenu(int category_id, String content, int type, String answer, String sequence);
     public boolean deleteSecondMenu(int id);
-    public boolean updateSecondMenu(int category_id,String content, int type, String answer, int id);
+    public boolean updateSecondMenu(int category_id,String content, int type, String answer, int id, String sequence);
     public List<Map<String, Object>> getAllSecondMenu();
     public List<Map<String, Object>> getSecondMenuById(int id);
+    public boolean menu2ContainsSequence(String sequence);
 
     // 三级菜单 数据交互
     public boolean addThirdMenu(int category_id, int subcategory_id, String content, String answer);
@@ -28,6 +30,9 @@ public interface WechatDao {
     public boolean updateThirdMenu(int category_id,int subcategory_id, String content, String answer, int id);
     public List<Map<String, Object>> getAllThirdMenu();
     public List<Map<String, Object>> getThirdMenuById(int id);
+    public boolean menu3ContainsSequence(String sequence);
 
+    public List<Map<String, Object>> getDataCountInfoList();
+    public boolean addQARecords(String userName,  String question, String answer,  String answerSource);
 
 }

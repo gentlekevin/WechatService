@@ -41,15 +41,15 @@ public class WebController {
 
     @RequestMapping(value = "/updateFirstMenu", method = RequestMethod.GET)
     @ResponseBody
-    public JSONObject updateFirstMenu (@RequestParam("content") String content,
-                                    @RequestParam("type") int type, @RequestParam("answer") String answer,
+    public JSONObject updateFirstMenu (@RequestParam("content") String content, @RequestParam("sequence") String sequence,
+                                       @RequestParam("type") int type, @RequestParam("answer") String answer,
                                     @RequestParam(value = "id") int id) {
         JSONObject result = new JSONObject();
         boolean isSuccess = true;
         if (id != -1) {
-            isSuccess = wechatService.updateFistMenu(content, type, answer, id);
+            isSuccess = wechatService.updateFistMenu(content, type, answer, id, sequence);
         } else {
-            isSuccess = wechatService.addFirstMenu(content, type, answer);
+            isSuccess = wechatService.addFirstMenu(content, type, answer, sequence);
         }
         result.put(SUCCESS, isSuccess);
         return result;
@@ -84,6 +84,33 @@ public class WebController {
         return result;
     }
 
+    @RequestMapping(value = "/menu1ContainsSequence", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject menu1ContainsSequence (@RequestParam("sequence") String sequence) {
+        JSONObject result = new JSONObject();
+        boolean isSuccess = wechatService.menu1ContainsSequence(sequence);
+        result.put(SUCCESS, !isSuccess);
+        return result;
+    }
+
+    @RequestMapping(value = "/menu2ContainsSequence", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject menu2ContainsSequence (@RequestParam("sequence") String sequence) {
+        JSONObject result = new JSONObject();
+        boolean isSuccess = wechatService.menu2ContainsSequence(sequence);
+        result.put(SUCCESS, !isSuccess);
+        return result;
+    }
+
+    @RequestMapping(value = "/menu3ContainsSequence", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject menu3ContainsSequence (@RequestParam("sequence") String sequence) {
+        JSONObject result = new JSONObject();
+        boolean isSuccess = wechatService.menu3ContainsSequence(sequence);
+        result.put(SUCCESS, !isSuccess);
+        return result;
+    }
+
 
     @RequestMapping(value = "/getAllSecondMenu", method = RequestMethod.GET)
     @ResponseBody
@@ -100,13 +127,13 @@ public class WebController {
     @ResponseBody
     public JSONObject updateSecondMenu (@RequestParam("category_id") int category_id, @RequestParam("content") String content,
                                        @RequestParam("type") int type, @RequestParam("answer") String answer,
-                                       @RequestParam(value = "id") int id) {
+                                       @RequestParam(value = "id") int id, @RequestParam(value = "sequence") String sequence) {
         JSONObject result = new JSONObject();
         boolean isSuccess = true;
         if (id != -1) {
-            isSuccess = wechatService.updateSecondMenu(category_id, content, type, answer, id);
+            isSuccess = wechatService.updateSecondMenu(category_id, content, type, answer, id, sequence);
         } else {
-            isSuccess = wechatService.addSecondMenu(category_id, content, type, answer);
+            isSuccess = wechatService.addSecondMenu(category_id, content, type, answer, sequence);
         }
         result.put(SUCCESS, isSuccess);
         return result;
@@ -178,6 +205,27 @@ public class WebController {
         result.put(SUCCESS, isSuccess);
         return result;
     }
+
+    @RequestMapping(value = "/getDataCountInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject getDataCountInfo () {
+        JSONObject result = new JSONObject();
+        result.put(SUCCESS, true);
+        result.put(DATA, wechatService.getCountInfo());
+        return result;
+    }
+
+    @RequestMapping(value = "/addQARecords", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject addQARecords (@RequestParam("userName") String userName, @RequestParam("question") String question,
+                                    @RequestParam("answer") String answer, @RequestParam("answerSource") String answerSource) {
+        JSONObject result = new JSONObject();
+        boolean isSuccess = wechatService.addQARecords(userName, question, answer, answerSource);
+        result.put(SUCCESS, isSuccess);
+        return result;
+    }
+
+
 
 }
 
