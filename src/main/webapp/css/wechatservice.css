@@ -1,0 +1,40 @@
+.dragger-handle-v {
+    height: 100%;
+    width: 3px;
+    position: relative;
+    border-left: solid 1px #ccc;
+    margin-left: 180px;
+}
+
+.left-index {
+    position: fixed;
+    z-index: 100;
+    top: 20px;
+    bottom: 0;
+    width: 100px;
+    margin-left: 20px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.dragger-vertical-line {
+    height: 100%;
+}
+
+.left-line{
+    float: left;
+    height: 100%;
+}
+
+.wechatservice-page-right {
+    float: left;
+    margin-left: 70px;
+    margin-right: 5px;
+    width: 800px;
+}
+
+.wechatservice-page-right td .wordbreak {
+    word-break: break-all;
+}
