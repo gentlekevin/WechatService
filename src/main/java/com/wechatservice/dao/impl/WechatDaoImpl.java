@@ -37,7 +37,6 @@ public class WechatDaoImpl implements WechatDao {
         return developers;
     }
 
-    @Override
     public boolean addFirstMenu(String content, int type, String answer) {
         String sql = "insert into t_category(content, addDate, type, answer) values('"+ content +"', '" + PropertyUtils.formateDate(new Date()) +"'," + type+", '"+ answer +"')";
         try {
@@ -49,7 +48,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public boolean deleteFirstMenu(int id) {
         String sql = "delete from t_category where id=" + id;
         try {
@@ -62,7 +60,6 @@ public class WechatDaoImpl implements WechatDao {
     }
 
 
-    @Override
     public boolean updateFirstMenu(String content, int type, String answer, int id) {
         String sql = "update  t_category set content='" + content + "', type=" + type + ",answer='" + answer +"'"  + " where id="  + id;
         try {
@@ -74,7 +71,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public List<Map<String, Object>> getAllFirstMenu() {
         String sql = "select * from t_category ";
         try {
@@ -85,7 +81,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public List<Map<String, Object>> getFirstMenuById(int id) {
         String sql = "select * from t_category where id=" + id;
         try {
@@ -96,7 +91,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public boolean addSecondMenu(int category_id, String content, int type, String answer) {
         String sql = "insert into t_subcategory(category_id, content, addDate, type, answer) values('" + category_id + "', '"+ content +"', '" + PropertyUtils.formateDate(new Date()) +"'," + type+", '"+ answer +"')";
         try {
@@ -108,7 +102,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public boolean deleteSecondMenu(int id) {
         String sql = "delete from t_subcategory where id=" + id;
         try {
@@ -120,7 +113,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public boolean updateSecondMenu(int category_id, String content, int type, String answer, int id) {
         String sql = "update  t_subcategory set content='" + content + "', type=" + type + ",answer='" + answer +"', category_id="+category_id  + " where id="  + id;
         try {
@@ -132,7 +124,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public List<Map<String, Object>> getAllSecondMenu() {
         String sql = "select * from t_subcategory ";
         try {
@@ -143,7 +134,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public List<Map<String, Object>> getSecondMenuById(int id) {
         String sql = "select * from t_subcategory where id=" + id;
         try {
@@ -154,7 +144,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public boolean addThirdMenu(int category_id, int subcategory_id, String content, String answer) {
         String sql = "insert into t_question(category_id, subcategory_id, content, answer) values(" + category_id + ", "+ subcategory_id +", '" + content+"','" + answer + "')";
         try {
@@ -166,7 +155,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public boolean deleteThirdMenu(int id) {
         String sql = "delete from t_question where id=" + id;
         try {
@@ -178,7 +166,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public boolean updateThirdMenu(int category_id, int subcategory_id, String content, String answer, int id) {
         String sql = "update  t_question set content='" + content + "' ,answer='" + answer +"',category_id="+ category_id + ",subcategory_id=" + subcategory_id + " where id="  + id;
         try {
@@ -190,7 +177,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public List<Map<String, Object>> getAllThirdMenu() {
         String sql = "select * from t_question ";
         try {
@@ -201,7 +187,6 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    @Override
     public List<Map<String, Object>> getThirdMenuById(int id) {
         String sql = "select * from t_question where id=" + id;
         try {

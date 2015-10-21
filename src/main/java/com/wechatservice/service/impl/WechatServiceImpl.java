@@ -22,22 +22,18 @@ public class WechatServiceImpl implements WechatService {
         return wechatDao.fetchData();
     }
 
-    @Override
     public boolean addFirstMenu(String content, int type, String answer) {
         return wechatDao.addFirstMenu(content, type, answer);
     }
 
-    @Override
     public boolean deleteFistMenu(int id) {
         return wechatDao.deleteFirstMenu(id);
     }
 
-    @Override
     public boolean updateFistMenu(String content, int type, String answer, int id) {
         return wechatDao.updateFirstMenu(content, type, answer, id);
     }
 
-    @Override
     public JSONArray getAllFirstMenu() {
         List<Map<String, Object>> list = wechatDao.getAllFirstMenu();
         JSONArray result = new JSONArray();
@@ -52,7 +48,6 @@ public class WechatServiceImpl implements WechatService {
         return result;
     }
 
-    @Override
     public JSONObject getFirstMenuById(int id) {
         JSONObject object = new JSONObject();
         List<Map<String, Object>> list = wechatDao.getFirstMenuById(id);
@@ -68,22 +63,21 @@ public class WechatServiceImpl implements WechatService {
         }
     }
 
-    @Override
     public boolean addSecondMenu(int category_id, String content, int type, String answer) {
         return wechatDao.addSecondMenu(category_id, content, type, answer);
     }
 
-    @Override
+  
     public boolean deleteSecondMenu(int id) {
         return wechatDao.deleteSecondMenu(id);
     }
 
-    @Override
+  
     public boolean updateSecondMenu(int category_id, String content, int type, String answer, int id) {
         return wechatDao.updateSecondMenu(category_id, content, type, answer, id);
     }
 
-    @Override
+    
     public JSONArray getAllSecondMenu() {
         List<Map<String, Object>> list = wechatDao.getAllSecondMenu();
         JSONArray result = new JSONArray();
@@ -99,7 +93,7 @@ public class WechatServiceImpl implements WechatService {
         return result;
     }
 
-    @Override
+   
     public JSONObject getSecondMenuById(int id) {
         JSONObject object = new JSONObject();
         List<Map<String, Object>> list = wechatDao.getSecondMenuById(id);
@@ -117,22 +111,22 @@ public class WechatServiceImpl implements WechatService {
     }
 
 
-    @Override
+
     public boolean addThirdMenu(int category_id, int subcategory_id, String content, String answer) {
         return wechatDao.addThirdMenu(category_id, subcategory_id, content, answer);
     }
 
-    @Override
+   
     public boolean deleteThirdMenu(int id) {
         return wechatDao.deleteThirdMenu(id);
     }
 
-    @Override
+ 
     public boolean updateThirdMenu(int category_id, int subcategory_id, String content, String answer, int id) {
         return wechatDao.updateThirdMenu(category_id, subcategory_id, content, answer, id);
     }
 
-    @Override
+   
     public JSONArray getAllThirdMenu() {
         List<Map<String, Object>> list = wechatDao.getAllThirdMenu();
         JSONArray result = new JSONArray();
@@ -148,7 +142,7 @@ public class WechatServiceImpl implements WechatService {
         return result;
     }
 
-    @Override
+    
     public JSONObject getThirdMenuById(int id) {
         JSONObject object = new JSONObject();
         List<Map<String, Object>> list = wechatDao.getThirdMenuById(id);

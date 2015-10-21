@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd "
+       default-lazy-init="false">
+
+    <description>DataSource</description>
+
+    <bean id="abstractDataSource" abstract="true">
+        <!-- Connection Pooling Info -->
+        <property name="initialSize" value="3"/>
+        <property name="maxActive" value="30"/>
+        <property name="minIdle" value="3"/>
+        <property name="maxIdle" value="10"/>
+        <property name="maxWait" value="10000"/>
+        <property name="validationQuery" value="select now();"/>
+        <property name="validationQueryTimeout" value="30"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="minEvictableIdleTimeMillis" value="1800000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="30000"/>
+        <property name="numTestsPerEvictionRun" value="10"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxOpenPreparedStatements" value="100"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <property name="defaultAutoCommit" value="false"/>
+    </bean>
+
+    <!-- SpringJdbc Template Bean -->
+    <bean id="mysqlJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="mysqlDataSource"/>
+    </bean>
+
+    <!-- DataSource configuration -->
+    <bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource" parent="abstractDataSource"
+          destroy-method="close">
+        <!-- Connection Info -->
+        <property name="driverClassName">
+            <value>${application.jdbc.driver}</value>
+        </property>
+        <property name="url">
+            <value>${application.jdbc.url}</value>
+        </property>
+        <property name="username">
+            <value>${application.jdbc.username}</value>
+        </property>
+        <property name="password">
+            <value>${application.jdbc.password}</value>
+        </property>
+        <!-- Connection Pooling Info -->
+        <property name="defaultAutoCommit" value="true"/>
+    </bean>
+
+
+
+    <!-- 暂时不使用切面来处理事务操作，如果使用事务，用注解声明方式
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:advice id="baseServiceAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="find*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="remove*" propagation="REQUIRED"/>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config expose-proxy="true">
+        <aop:pointcut id="txPointcut" expression="execution(* com.baidu.pingo.service.impl.*.*(..))"/>
+        <aop:advisor advice-ref="baseServiceAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+    -->
+
+</beans>
