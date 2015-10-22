@@ -10,8 +10,9 @@
             <h3>菜单管理</h3>
             <li role="presentation"><a onclick="firstMenuClick()"  class="pointer" id ="menu1"> ●一级菜单</a></li>
             <li role="presentation"><a onclick="secondMenuClick()" class="pointer" id ="menu2"> ●二级菜单</a></li>
-            <li role="presentation"><a onclick="ThirdMenuClick()" class="pointer" id ="menu3"> ●三级菜单</a></li>
+            <li role="presentation"><a onclick="ThirdMenuClick()" class="pointer" id ="menu3" style="display: none;"> ●三级菜单</a></li>
             <h3>数据统计</h3>
+            <li role="presentation"><a onclick="dataCountInfoClick()" class="pointer"> ●统计信息</a></li>
         </ul>
         <div class="left-line" >
             <div class="dragger-vertical-line">
@@ -29,6 +30,7 @@
                 <caption>一级菜单</caption>
                 <thead>
                     <tr>
+                        <th>序列</th>
                         <th>内容</th>
                         <th>类型</th>
                         <th>答案</th>
@@ -39,6 +41,11 @@
                 </tbody>
             </table>
             <form>
+                <div class="form-group">
+                    <label for="menu1_sequence">序列</label>
+                    <input type="text" class="form-control" id="menu1_sequence" placeholder="序列" onblur="menu1SequenceCheck()">
+                </div>
+                <span id="menu1_sequence_message" class="help-block alert  alert-success" style="display: none;"></span>
                 <div class="form-group">
                     <label for="menu1_content">内容</label>
                     <input type="text" class="form-control" id="menu1_content" placeholder="内容">
@@ -65,6 +72,7 @@
                 <thead>
                 <tr>
                     <th>一级菜单</th>
+                    <th>序列</th>
                     <th>内容</th>
                     <th>类型</th>
                     <th>答案</th>
@@ -78,6 +86,11 @@
                 <label for="menu2_category">一级菜单</label>
                 <select class="form-control" id="menu2_category">
                 </select>
+                <div class="form-group">
+                    <label for="menu2_sequence">序列</label>
+                    <input type="text" class="form-control" id="menu2_sequence" placeholder="序列" onblur="menu2SequenceCheck()">
+                </div>
+                <span id="menu2_sequence_message" class="help-block alert  alert-success" style="display: none;"></span>
                 <div class="form-group">
                     <label for="menu2_content">内容</label>
                     <input type="text" class="form-control" id="menu2_content" placeholder="内容">
@@ -131,6 +144,24 @@
                 </div>
                 <button type="button" class="btn btn-default" onclick="updateThirdMenu()" id="thirdMenuSubmit">新增</button>
             </form>
+        </div>
+    </div>
+
+
+    <!-- 数据统计信息-->
+    <div class="wechatservice-page-right">
+        <div id = "dataCountInfo" style="display: none">
+            <table class="table table table-bordered">
+                <caption>数据统计信息</caption>
+                <thead>
+                <tr>
+                    <th>来源</th>
+                    <th>比例</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

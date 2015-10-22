@@ -6,6 +6,7 @@ function firstMenuClick() {
     $('#firstMenu').show();
     $('#secondMenu').hide();
     $('#thirdMenu').hide();
+    $('#dataCountInfo').hide();
 }
 
 function secondMenuClick() {
@@ -16,6 +17,7 @@ function secondMenuClick() {
     $('#firstMenu').hide();
     $('#secondMenu').show();
     $('#thirdMenu').hide();
+    $('#dataCountInfo').hide();
 }
 
 function ThirdMenuClick() {
@@ -24,8 +26,39 @@ function ThirdMenuClick() {
     }
     $('#firstMenu').hide();
     $('#secondMenu').hide();
+    $('#dataCountInfo').hide();
     $('#thirdMenu').show();
     this.getAllThirdMenu();
+}
+
+function dataCountInfoClick () {
+    this.selectMenu(window.event);
+    $('#firstMenu').hide();
+    $('#secondMenu').hide();
+    $('#thirdMenu').hide();
+    $('#dataCountInfo').show();
+    this.getDataCountInfo();
+}
+
+function getDataCountInfo() {
+    var url = "web/getDataCountInfo"
+    $.ajax({
+        url: url,
+        type: 'get',
+        async : false,
+        success: function(info) {
+            var content = '';
+            for (var key in info.data) {
+                var text = '<tr><td>' + key + '</td><td>' + info.data[key] +'</td></tr>';
+                content += text;
+            }
+            $('#dataCountInfo tbody').html(content) ;
+        },
+        error: function() {
+            $('#message').text('获取数据失败!')
+            $('#message').show();
+        }
+    });
 }
 
 function getAllFirstMenu() {
@@ -44,7 +77,7 @@ function getAllFirstMenu() {
                 } else if ( type == 1) {
                     type = '问题';
                 }
-                var text ='<tr>' + '<th scope="row">'+ datas[i].content +'</th>' + '<td>' + type + '</td>'+ '<td>' + datas[i].answer + '</td>'+ '<td firstMenuId=' + datas[i].id + '><a class="pointer" onclick="getFirstMenuById()">修改</a>&nbsp;&nbsp;  <a class="pointer" onclick="deleteFirstMenu()">删除</a></td></tr>';
+                var text ='<tr>' + '<th scope="row">'+ datas[i].sequence +'</th>'  + '<td>' + datas[i].content + '</td>'+ '<td>' + type + '</td>'+ '<td>' + datas[i].answer + '</td>'+ '<td firstMenuId=' + datas[i].id + '><a class="pointer" onclick="getFirstMenuById()">修改</a>&nbsp;&nbsp;  <a class="pointer" onclick="deleteFirstMenu()">删除</a></td></tr>';
                 content += text;
             }
             $('#firstMenu tbody').html(content) ;
@@ -70,7 +103,8 @@ function updateFistMenu () {
     var menu1_content = $('#menu1_content').val();
     var menu1_type = $('#menu1_type').val();
     var menu1_answer = $('#menu1_answer').val();
-    var url = 'web/updateFirstMenu?content=' + menu1_content + '&type=' + menu1_type + '&answer=' + menu1_answer ;
+    var menu1_sequence = $('#menu1_sequence').val();
+    var url = 'web/updateFirstMenu?content=' + menu1_content + '&type=' + menu1_type + '&answer=' + menu1_answer + '&sequence=' + menu1_sequence;
     var id = -1;
     if ($('#firstMenuSubmit').attr('firstMenuId')) {
         id = $('#firstMenuSubmit').attr('firstMenuId');
@@ -83,6 +117,7 @@ function updateFistMenu () {
         success: function(info) {
             $('#menu1_content').val('');
             $('#menu1_answer').val('');
+            $('#menu1_sequence').val('');
             $('#message').text('数据修改成功!')
             $('#message').show();
             // 隐藏提示框
@@ -116,6 +151,7 @@ function getFirstMenuById () {
         success: function(info) {
             $('#menu1_content').val(info.data.content);
             $('#menu1_answer').val(info.data.answer);
+            $('#menu1_sequence').val(info.data.sequence);
             $('#firstMenuSubmit').attr('firstMenuId', id);
             $('#firstMenuSubmit').text('修改');
         },
@@ -174,7 +210,7 @@ function getAllSecondMenu() {
                 } else if ( type == 1) {
                     type = '问题';
                 }
-                var text ='<tr>' + '<th scope="row">'+ datas[i].category_id +'</th>' +'<td>' + datas[i].content + '</td>'+'<td>' + type + '</td>'+ '<td>' + datas[i].answer + '</td>'+ '<td secondMenuId=' + datas[i].id + '><a class="pointer" onclick="getSecondMenuById()">修改</a>&nbsp;&nbsp;  <a class="pointer" onclick="deleteSecondMenu()">删除</a></td></tr>';
+                var text ='<tr>' + '<th scope="row">'+ datas[i].category_id +'</th>' +'<td>' + datas[i].sequence + '</td>' + '<td>' + datas[i].content + '</td>'+'<td>' + type + '</td>'+ '<td>' + datas[i].answer + '</td>'+ '<td secondMenuId=' + datas[i].id + '><a class="pointer" onclick="getSecondMenuById()">修改</a>&nbsp;&nbsp;  <a class="pointer" onclick="deleteSecondMenu()">删除</a></td></tr>';
                 content += text;
             }
             $('#secondMenu tbody').html(content) ;
@@ -214,7 +250,8 @@ function updateSecondMenu () {
     var menu2_type = $('#menu2_type').val();
     var menu2_answer = $('#menu2_answer').val();
     var menu2_category_id = $('#menu2_category').val();
-    var url = 'web/updateSecondMenu?content=' + menu2_content + '&type=' + menu2_type + '&answer=' + menu2_answer + '&category_id=' + menu2_category_id ;
+    var menu2_sequence =  $('#menu2_sequence').val();
+    var url = 'web/updateSecondMenu?content=' + menu2_content + '&type=' + menu2_type + '&answer=' + menu2_answer + '&category_id=' + menu2_category_id + '&sequence=' + menu2_sequence ;
     var id = -1;
     if ($('#secondMenuSubmit').attr('secondMenuId')) {
         id = $('#secondMenuSubmit').attr('secondMenuId');
@@ -227,6 +264,7 @@ function updateSecondMenu () {
         success: function(info) {
             $('#menu2_content').val('');
             $('#menu2_answer').val('');
+            $('#menu2_sequence').val('');
             $('#message').text('数据修改成功!');
             $('#message').show();
             // 隐藏提示框
@@ -260,6 +298,7 @@ function getSecondMenuById() {
         success: function(info) {
             $('#menu2_content').val(info.data.content);
             $('#menu2_answer').val(info.data.answer);
+            $('#menu2_sequence').val(info.data.sequence);
             $('#secondMenuSubmit').attr('secondMenuId', id);
             $('#secondMenuSubmit').text('修改');
         },
@@ -457,6 +496,65 @@ function deleteThirdMenu() {
         error: function() {
             $('#message').text('数据删除失败!');
             $('#message').show();
+        }
+    });
+}
+
+function menu1SequenceCheck() {
+    var sequence = $('#menu1_sequence').val();
+    if (isNaN(sequence)) {
+        $('#menu1_sequence_message').text('请输入正确的序列，只能为数字!');
+        $('#menu1_sequence_message').show();
+        $('#firstMenuSubmit').attr('disabled', '');
+        return;
+    } else if (!sequence) {
+        $('#menu1_sequence_message').text('请输入正确的序列，不能为空!');
+        $('#menu1_sequence_message').show();
+        $('#firstMenuSubmit').attr('disabled', '');
+        return;
+    }
+    $('#firstMenuSubmit').removeAttr('disabled');
+    $('#menu1_sequence_message').hide();
+    var url = 'web/menu1ContainsSequence?sequence=' + sequence;
+    $.ajax({
+        url: url,
+        type: 'get',
+        async : false,
+        success: function(info) {
+            if (!info.success) {
+                $('#menu1_sequence_message').text('该序列已经存在该菜单下，请检查后重新输入!');
+                $('#menu1_sequence_message').show();
+            }
+        }
+    });
+}
+
+
+function menu2SequenceCheck() {
+    var sequence = $('#menu2_sequence').val();
+    if (isNaN(sequence)) {
+        $('#menu2_sequence_message').text('请输入正确的序列，只能为数字!');
+        $('#menu2_sequence_message').show();
+        $('#secondMenuSubmit').attr('disabled', '');
+        return;
+    } else if (!sequence) {
+        $('#menu2_sequence_message').text('请输入正确的序列，不能为空!');
+        $('#menu2_sequence_message').show();
+        $('#secondMenuSubmit').attr('disabled', '');
+        return;
+    }
+    $('#secondMenuSubmit').removeAttr('disabled');
+    $('#menu2_sequence_message').hide();
+    var url = 'web/menu2ContainsSequence?sequence=' + sequence;
+    $.ajax({
+        url: url,
+        type: 'get',
+        async : false,
+        success: function(info) {
+            if (!info.success) {
+                $('#menu2_sequence_message').text('该序列已经存在该菜单下，请检查后重新输入!');
+                $('#menu2_sequence_message').show();
+            }
         }
     });
 }

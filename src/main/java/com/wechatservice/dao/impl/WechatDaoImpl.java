@@ -1,6 +1,6 @@
 package com.wechatservice.dao.impl;
 
-import com.wechatservice.utils.PropertyUtils;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.wechatservice.dao.WechatDao;
+import com.wechatservice.utils.PropertyUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,8 +38,11 @@ public class WechatDaoImpl implements WechatDao {
         return developers;
     }
 
-    public boolean addFirstMenu(String content, int type, String answer) {
-        String sql = "insert into t_category(content, addDate, type, answer) values('"+ content +"', '" + PropertyUtils.formateDate(new Date()) +"'," + type+", '"+ answer +"')";
+
+    @Override
+    public boolean addFirstMenu(String content, int type, String answer,  String sequence) {
+        String sql = "insert into t_category(content, addDate, type, answer, sequence) values('"+ content +"', '" + PropertyUtils.formateDate(new Date()) +"'," + type+", '"+ answer +"', '"+  sequence +"')";
+
         try {
             this.jdbcTemplate.execute(sql);
             return true;
@@ -60,8 +64,11 @@ public class WechatDaoImpl implements WechatDao {
     }
 
 
-    public boolean updateFirstMenu(String content, int type, String answer, int id) {
-        String sql = "update  t_category set content='" + content + "', type=" + type + ",answer='" + answer +"'"  + " where id="  + id;
+
+    @Override
+    public boolean updateFirstMenu(String content, int type, String answer, int id, String sequence) {
+        String sql = "update  t_category set content='" + content + "', type=" + type + ",answer='" + answer +"', sequence='" + sequence +"' where id="  + id;
+
         try {
             this.jdbcTemplate.execute(sql);
             return true;
@@ -91,8 +98,26 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    public boolean addSecondMenu(int category_id, String content, int type, String answer) {
-        String sql = "insert into t_subcategory(category_id, content, addDate, type, answer) values('" + category_id + "', '"+ content +"', '" + PropertyUtils.formateDate(new Date()) +"'," + type+", '"+ answer +"')";
+
+  
+    public boolean menu1ContainsSequence(String sequence) {
+        String sql = "select sequence from t_category where sequence=" + sequence;
+        try {
+            List<Map<String, Object>> list = this.jdbcTemplate.queryForList(sql);
+            if (list != null && list.size() > 0) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            LOG.info(e);
+            return false;
+        }
+    }
+
+    
+    public boolean addSecondMenu(int category_id, String content, int type, String answer, String sequence) {
+        String sql = "insert into t_subcategory(category_id, content, addDate, type, answer, sequence) values('" + category_id + "', '"+ content +"', '" + PropertyUtils.formateDate(new Date()) +"'," + type+", '"+ answer + "', '"+ sequence +"')";
+
         try {
             this.jdbcTemplate.execute(sql);
             return true;
@@ -113,8 +138,10 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
-    public boolean updateSecondMenu(int category_id, String content, int type, String answer, int id) {
-        String sql = "update  t_subcategory set content='" + content + "', type=" + type + ",answer='" + answer +"', category_id="+category_id  + " where id="  + id;
+
+    public boolean updateSecondMenu(int category_id, String content, int type, String answer, int id, String sequence) {
+        String sql = "update  t_subcategory set content='" + content + "', type=" + type + ",answer='" + answer +"', category_id="+category_id +", sequence='" + sequence + "' where id="  + id;
+
         try {
             this.jdbcTemplate.execute(sql);
             return true;
@@ -143,6 +170,23 @@ public class WechatDaoImpl implements WechatDao {
             return new ArrayList<Map<String, Object>>();
         }
     }
+
+
+    @Override
+    public boolean menu2ContainsSequence(String sequence) {
+        String sql = "select sequence from t_subcategory where sequence=" + sequence;
+        try {
+            List<Map<String, Object>> list = this.jdbcTemplate.queryForList(sql);
+            if (list != null && list.size() > 0) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            LOG.info(e);
+            return false;
+        }
+    }
+
 
     public boolean addThirdMenu(int category_id, int subcategory_id, String content, String answer) {
         String sql = "insert into t_question(category_id, subcategory_id, content, answer) values(" + category_id + ", "+ subcategory_id +", '" + content+"','" + answer + "')";
@@ -194,6 +238,45 @@ public class WechatDaoImpl implements WechatDao {
         } catch (Exception e) {
             LOG.info(e);
             return new ArrayList<Map<String, Object>>();
+        }
+    }
+
+    @Override
+    public boolean menu3ContainsSequence(String sequence) {
+        String sql = "select sequence from t_question where sequence=" + sequence;
+        try {
+            List<Map<String, Object>> list = this.jdbcTemplate.queryForList(sql);
+            if (list != null && list.size() > 0) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            LOG.info(e);
+            return false;
+        }
+    }
+
+
+    @Override
+    public List<Map<String, Object>> getDataCountInfoList() {
+        String sql = "select id, answerSource from t_qarecords";
+        try {
+            return this.jdbcTemplate.queryForList(sql);
+        } catch (Exception e) {
+            LOG.info(e);
+            return new ArrayList<Map<String,Object>>();
+        }
+    }
+
+    @Override
+    public boolean addQARecords(String userName, String question, String answer, String answerSource) {
+        String sql = "insert into t_qarecords(userName, question, answer, answerSource) values ('" + userName +"', '" + question + "', '" +  answer + "', '" +  answerSource+ "')";
+        try {
+            this.jdbcTemplate.execute(sql);
+            return true;
+        } catch (Exception e) {
+            LOG.info(e);
+            return false;
         }
     }
 }
