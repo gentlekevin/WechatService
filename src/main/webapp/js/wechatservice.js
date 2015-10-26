@@ -532,6 +532,7 @@ function menu1SequenceCheck() {
 
 function menu2SequenceCheck() {
     var sequence = $('#menu2_sequence').val();
+    var category_id = $('#menu2_category').val();
     if (isNaN(sequence)) {
         $('#menu2_sequence_message').text('请输入正确的序列，只能为数字!');
         $('#menu2_sequence_message').show();
@@ -545,7 +546,7 @@ function menu2SequenceCheck() {
     }
     $('#secondMenuSubmit').removeAttr('disabled');
     $('#menu2_sequence_message').hide();
-    var url = 'web/menu2ContainsSequence?sequence=' + sequence;
+    var url = 'web/menu2ContainsSequence?sequence=' + sequence + '&categoryId=' + category_id;
     $.ajax({
         url: url,
         type: 'get',

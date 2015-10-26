@@ -138,8 +138,8 @@ public class WechatServiceImpl implements WechatService {
 
 
     @Override
-    public boolean menu2ContainsSequence(String sequence) {
-        return wechatDao.menu2ContainsSequence(sequence);
+    public boolean menu2ContainsSequence(String sequence,  String categoryId) {
+        return wechatDao.menu2ContainsSequence(sequence,  categoryId);
     }
 
     @Override
