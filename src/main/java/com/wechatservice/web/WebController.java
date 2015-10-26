@@ -95,9 +95,9 @@ public class WebController {
 
     @RequestMapping(value = "/menu2ContainsSequence", method = RequestMethod.GET)
     @ResponseBody
-    public JSONObject menu2ContainsSequence (@RequestParam("sequence") String sequence) {
+    public JSONObject menu2ContainsSequence (@RequestParam("sequence") String sequence, @RequestParam("categoryId") String categoryId) {
         JSONObject result = new JSONObject();
-        boolean isSuccess = wechatService.menu2ContainsSequence(sequence);
+        boolean isSuccess = wechatService.menu2ContainsSequence(sequence, categoryId);
         result.put(SUCCESS, !isSuccess);
         return result;
     }

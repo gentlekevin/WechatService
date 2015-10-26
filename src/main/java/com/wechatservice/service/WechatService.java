@@ -26,10 +26,14 @@ public interface WechatService {
     public boolean updateSecondMenu(int category_id,String content, int type, String answer, int id, String sequence);
     public JSONArray getAllSecondMenu();
     public JSONObject getSecondMenuById(int id);
+
     
     public JSONArray getMenu2ByMenu1Sequen(String menu1sequence);
     public JSONObject getMenu2AnswerByMenu1and2(String menu1sequence,String menu2sequence);
     public boolean menu2ContainsSequence(String sequence);
+
+    public boolean menu2ContainsSequence(String sequence, String categoryId);
+
 
     // 三级菜单业务交互
     public boolean addThirdMenu(int category_id,int subcategory_id, String content, String answer);
