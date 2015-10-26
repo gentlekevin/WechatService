@@ -316,9 +316,6 @@ public class WechatDaoImpl implements WechatDao {
     }
 
 
-
-
-
 	
 
 

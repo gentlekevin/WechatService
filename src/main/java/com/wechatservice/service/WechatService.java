@@ -30,7 +30,7 @@ public interface WechatService {
     
     public JSONArray getMenu2ByMenu1Sequen(String menu1sequence);
     public JSONObject getMenu2AnswerByMenu1and2(String menu1sequence,String menu2sequence);
-    public boolean menu2ContainsSequence(String sequence);
+    
 
     public boolean menu2ContainsSequence(String sequence, String categoryId);
 

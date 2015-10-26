@@ -26,7 +26,7 @@ public interface WechatDao {
 
     public List<Map<String, Object>> getMenu2ByMenu1Sequen(String menu1sequence);
     public List<Map<String, Object>> getMenu2AnswerByMenu1and2(String menu1sequence,String menu2sequence);
-    public boolean menu2ContainsSequence(String sequence);
+  
 
     public boolean menu2ContainsSequence(String sequence,  String categoryId);
 
