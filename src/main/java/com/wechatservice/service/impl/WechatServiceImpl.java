@@ -1,6 +1,7 @@
 package com.wechatservice.service.impl;
 
 import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +74,22 @@ public class WechatServiceImpl implements WechatService {
             return object;
         }
     }
-
+    @Override
+	public JSONObject getFirstMenuIdBySequen(String sequence) {
+    	JSONObject object = new JSONObject();
+        List<Map<String, Object>> list = wechatDao.getFirstMenuIdBySequen(sequence);
+        if (list == null || list.size() != 1) {
+            return object;
+        } else {
+            Map<String, Object> map = list.get(0);
+            object.put("id", map.get("id"));
+            object.put("content", map.get("content"));
+            object.put("type", map.get("type"));
+            object.put("answer", map.get("answer"));
+            object.put("sequence", map.get("sequence"));
+            return object;
+        }
+	}
 
 
     @Override
@@ -135,7 +151,44 @@ public class WechatServiceImpl implements WechatService {
         }
     }
 
+    @Override
+	public JSONArray getMenu2ByMenu1Sequen(String menu1sequence) {
+    	 List<Map<String, Object>> list = wechatDao.getMenu2ByMenu1Sequen(menu1sequence);
+         JSONArray result = new JSONArray();
+         for (Map<String, Object> map : list) {
+             JSONObject object = new JSONObject();
+             object.put("id", map.get("id"));
+             object.put("content", map.get("content"));
+             object.put("category_id", map.get("category_id"));
+             object.put("type", map.get("type"));
+             object.put("answer", map.get("answer"));
+             object.put("sequence", map.get("sequence"));
+             result.add(object);
+         }
+         return result;
+	}
 
+
+	@Override
+	public JSONObject getMenu2AnswerByMenu1and2(String menu1sequence,
+			String menu2sequence) {
+	
+		JSONObject object = new JSONObject();
+		List<Map<String, Object>> list = wechatDao.getMenu2AnswerByMenu1and2(menu1sequence, menu2sequence);
+        if (list == null || list.size() != 1) {
+            return object;
+        } else {
+            Map<String, Object> map = list.get(0);
+            object.put("id", map.get("id"));
+            object.put("category_id", map.get("category_id"));
+            object.put("content", map.get("content"));
+            object.put("type", map.get("type"));
+            object.put("answer", map.get("answer"));
+            object.put("sequence", map.get("sequence"));
+            return object;
+        }
+
+	}
 
     @Override
     public boolean menu2ContainsSequence(String sequence) {
@@ -225,4 +278,10 @@ public class WechatServiceImpl implements WechatService {
     public boolean addQARecords(String userName, String question, String answer, String answerSource) {
         return wechatDao.addQARecords(userName, question, answer, answerSource);
     }
+
+
+	
+
+
+	
 }

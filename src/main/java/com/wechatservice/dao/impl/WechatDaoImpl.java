@@ -87,7 +87,31 @@ public class WechatDaoImpl implements WechatDao {
             return new ArrayList<Map<String, Object>>();
         }
     }
-
+    @Override
+    public List<Map<String, Object>>  getFirstMenuIdBySequen(String sequence){
+    	 String sql = "select * from t_category where sequence=" + sequence;
+    	   
+            try {
+                return this.jdbcTemplate.queryForList(sql);
+            } catch (Exception e) {
+                LOG.info(e);
+                return new ArrayList<Map<String, Object>>();
+            }
+		
+	}
+	@Override
+	public List<Map<String, Object>> getMenu2AnswerByMenu1and2(String menu1sequence,
+			String menu2sequence) {
+		 String sql = "select s.* from t_subcategory s,t_category c  where s.sequence="+menu1sequence+
+				 " and s.category_id= c.id and c.sequence=" + menu2sequence+" order by s.sequence asc";
+	        try {
+	            return this.jdbcTemplate.queryForList(sql);
+	        } catch (Exception e) {
+	            LOG.info(e);
+	            return new ArrayList<Map<String, Object>>();
+	        }
+	}
+    
     public List<Map<String, Object>> getFirstMenuById(int id) {
         String sql = "select * from t_category where id=" + id;
         try {
@@ -161,6 +185,17 @@ public class WechatDaoImpl implements WechatDao {
         }
     }
 
+    
+	@Override
+	public List<Map<String, Object>> getMenu2ByMenu1Sequen(String menu1sequence) {
+		  String sql = "select s.* from t_subcategory s,t_category c  where  s.category_id= c.id and c.sequence=" + menu1sequence+" order by s.sequence asc";
+	        try {
+	            return this.jdbcTemplate.queryForList(sql);
+	        } catch (Exception e) {
+	            LOG.info(e);
+	            return new ArrayList<Map<String, Object>>();
+	        }
+	}
     public List<Map<String, Object>> getSecondMenuById(int id) {
         String sql = "select * from t_subcategory where id=" + id;
         try {
@@ -279,4 +314,13 @@ public class WechatDaoImpl implements WechatDao {
             return false;
         }
     }
+
+
+
+
+
+	
+
+
+
 }

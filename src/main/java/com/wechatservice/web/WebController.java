@@ -55,7 +55,7 @@ public class WebController {
         return result;
     }
 
-    @RequestMapping(value = "/getAllFirstMenu", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllFirstMenu", method ={ RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public JSONObject getAllFirstMenu () {
         JSONObject result = new JSONObject();
@@ -138,7 +138,47 @@ public class WebController {
         result.put(SUCCESS, isSuccess);
         return result;
     }
-
+    
+    //-------------add by kevin begin---------------------------------------------------------
+    @RequestMapping(value = "/getMenu1ByMenu1Sequence", method ={ RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public JSONObject getMenu1ByMenu1Sequence (@RequestParam("menu1Sequence") String menu1Sequence) {
+        JSONObject result = new JSONObject();
+        JSONObject data = wechatService.getFirstMenuIdBySequen(menu1Sequence);
+       if("0".equals(data.get("type"))){
+    	  //此时是问题 
+    	   result.put(SUCCESS, false);
+           result.put(DATA, data);
+       } else {
+    	   result.put(SUCCESS, true);
+       }      
+        
+        return result;
+    }
+    @RequestMapping(value = "/getSecondMenuByMenu1Sequence", method ={ RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public JSONObject getSecondMenuByMenu1Sequence (@RequestParam("menu1Sequence") String menu1Sequence) {
+        JSONObject result = new JSONObject();
+        JSONArray datas = wechatService.getMenu2ByMenu1Sequen(menu1Sequence);
+        result.put(SUCCESS, true);
+        result.put(DATA, datas);
+        
+        return result;
+    }
+    
+    @RequestMapping(value = "/getSecondMenuByMenu1and2Sequence", method ={ RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public JSONObject getSecondMenuByMenu1and2Sequence (@RequestParam("menu1sequence") String menu1sequence,
+    		@RequestParam("menu2sequence") String menu2sequence  		) {
+        JSONObject result = new JSONObject();
+        JSONObject datas = wechatService.getMenu2AnswerByMenu1and2(menu1sequence, menu2sequence);
+        result.put(SUCCESS, true);
+        result.put(DATA, datas);
+        return result;
+    }
+    
+    
+  //-------------add by kevin end---------------------------------------------------------
 
     @RequestMapping(value = "/getSecondMenuById", method = RequestMethod.GET)
     @ResponseBody
@@ -224,8 +264,5 @@ public class WebController {
         result.put(SUCCESS, isSuccess);
         return result;
     }
-
-
-
 }
 

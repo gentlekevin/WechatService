@@ -14,6 +14,7 @@ public interface WechatDao {
     public boolean updateFirstMenu(String content, int type, String answer, int id, String sequence);
     public List<Map<String, Object>> getAllFirstMenu();
     public List<Map<String, Object>> getFirstMenuById(int id);
+    public List<Map<String, Object>>  getFirstMenuIdBySequen(String sequence);
     public boolean menu1ContainsSequence(String sequence);
 
     // 二级菜单 数据交互
@@ -22,6 +23,8 @@ public interface WechatDao {
     public boolean updateSecondMenu(int category_id,String content, int type, String answer, int id, String sequence);
     public List<Map<String, Object>> getAllSecondMenu();
     public List<Map<String, Object>> getSecondMenuById(int id);
+    public List<Map<String, Object>> getMenu2ByMenu1Sequen(String menu1sequence);
+    public List<Map<String, Object>> getMenu2AnswerByMenu1and2(String menu1sequence,String menu2sequence);
     public boolean menu2ContainsSequence(String sequence);
 
     // 三级菜单 数据交互
