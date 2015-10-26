@@ -22,7 +22,7 @@ public interface WechatDao {
     public boolean updateSecondMenu(int category_id,String content, int type, String answer, int id, String sequence);
     public List<Map<String, Object>> getAllSecondMenu();
     public List<Map<String, Object>> getSecondMenuById(int id);
-    public boolean menu2ContainsSequence(String sequence);
+    public boolean menu2ContainsSequence(String sequence,  String categoryId);
 
     // 三级菜单 数据交互
     public boolean addThirdMenu(int category_id, int subcategory_id, String content, String answer);

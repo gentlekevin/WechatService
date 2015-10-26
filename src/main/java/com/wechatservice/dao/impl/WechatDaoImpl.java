@@ -171,8 +171,8 @@ public class WechatDaoImpl implements WechatDao {
 
 
     @Override
-    public boolean menu2ContainsSequence(String sequence) {
-        String sql = "select sequence from t_subcategory where sequence=" + sequence;
+    public boolean menu2ContainsSequence(String sequence,  String categoryId) {
+        String sql = "select sequence from t_subcategory where sequence=" + sequence + " and category_id=" + categoryId;
         try {
             List<Map<String, Object>> list = this.jdbcTemplate.queryForList(sql);
             if (list != null && list.size() > 0) {
