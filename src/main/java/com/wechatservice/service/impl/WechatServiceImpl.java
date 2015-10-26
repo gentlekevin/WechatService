@@ -157,11 +157,7 @@ public class WechatServiceImpl implements WechatService {
          JSONArray result = new JSONArray();
          for (Map<String, Object> map : list) {
              JSONObject object = new JSONObject();
-             object.put("id", map.get("id"));
              object.put("content", map.get("content"));
-             object.put("category_id", map.get("category_id"));
-             object.put("type", map.get("type"));
-             object.put("answer", map.get("answer"));
              object.put("sequence", map.get("sequence"));
              result.add(object);
          }
@@ -179,12 +175,7 @@ public class WechatServiceImpl implements WechatService {
             return object;
         } else {
             Map<String, Object> map = list.get(0);
-            object.put("id", map.get("id"));
-            object.put("category_id", map.get("category_id"));
-            object.put("content", map.get("content"));
-            object.put("type", map.get("type"));
             object.put("answer", map.get("answer"));
-            object.put("sequence", map.get("sequence"));
             return object;
         }
 
@@ -279,7 +270,7 @@ public class WechatServiceImpl implements WechatService {
         return wechatDao.addQARecords(userName, question, answer, answerSource);
     }
 
-
+	
 
 
 	

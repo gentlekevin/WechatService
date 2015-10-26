@@ -255,7 +255,7 @@ public class WebController {
         return result;
     }
 
-    @RequestMapping(value = "/addQARecords", method = RequestMethod.GET)
+    @RequestMapping(value = "/addQARecords", method ={ RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public JSONObject addQARecords (@RequestParam("userName") String userName, @RequestParam("question") String question,
                                     @RequestParam("answer") String answer, @RequestParam("answerSource") String answerSource) {
