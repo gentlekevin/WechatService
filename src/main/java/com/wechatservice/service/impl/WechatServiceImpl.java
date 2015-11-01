@@ -248,17 +248,11 @@ public class WechatServiceImpl implements WechatService {
             result.put(NLP, "");
             result.put(SA, "");
         } else {
-            int sum = list.size();
-            int countOfSA = 0;
-            for (Map<String, Object> map: list) {
-                int source = Integer.valueOf(map.get("answerSource").toString());
-                if (source == 0) {
-                    countOfSA++;
-                }
-            }
+            double sum = Double.valueOf(list.get(0).get("amount").toString());
+            double countOfNLP = Double.valueOf(list.get(0).get("countOfNLP").toString());;
             DecimalFormat df = new DecimalFormat("0.00%");
-            String percentOfSA = df.format(Double.valueOf(countOfSA) / Double.valueOf(sum));
-            String percentOfNLP =df.format(Double.valueOf(sum - countOfSA) / Double.valueOf(sum));
+            String percentOfSA = df.format((sum - countOfNLP) / sum);
+            String percentOfNLP =df.format(countOfNLP / sum);
             result.put(SA, percentOfSA);
             result.put(NLP, percentOfNLP);
         }
