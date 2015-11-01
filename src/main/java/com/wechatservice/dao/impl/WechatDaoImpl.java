@@ -294,7 +294,7 @@ public class WechatDaoImpl implements WechatDao {
 
     @Override
     public List<Map<String, Object>> getDataCountInfoList() {
-        String sql = "select id, answerSource from t_qarecords";
+        String sql = "select count(id) as amount,sum(answerSource) as countOfNLP from t_qarecords;";
         try {
             return this.jdbcTemplate.queryForList(sql);
         } catch (Exception e) {
