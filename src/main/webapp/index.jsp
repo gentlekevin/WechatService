@@ -50,6 +50,7 @@
                     <label for="menu1_content">内容</label>
                     <input type="text" class="form-control" id="menu1_content" placeholder="内容">
                 </div>
+                <span id="menu1_content_message" class="help-block alert  alert-success" style="display: none;"></span>
                 <label for="menu1_type">类型</label>
                 <select class="form-control" id="menu1_type">
                     <option value="0">菜单</option>
@@ -59,6 +60,7 @@
                      <label for="menu1_answer">答案</label>
                      <input type="text" class="form-control" id="menu1_answer" placeholder="答案">
                 </div>
+                <span id="menu1_answer_message" class="help-block alert  alert-success" style="display: none;"></span>
                 <button type="button" class="btn btn-default" onclick="updateFistMenu()" id="firstMenuSubmit">新增</button>
             </form>
         </div>
@@ -95,6 +97,7 @@
                     <label for="menu2_content">内容</label>
                     <input type="text" class="form-control" id="menu2_content" placeholder="内容">
                 </div>
+                <span id="menu2_content_message" class="help-block alert  alert-success" style="display: none;"></span>
                 <label for="menu2_type">类型</label>
                 <select class="form-control" id="menu2_type">
                     <option value="0">菜单</option>
@@ -104,6 +107,7 @@
                     <label for="menu2_answer">答案</label>
                     <input type="text" class="form-control" id="menu2_answer" placeholder="答案">
                 </div>
+                <span id="menu2_answer_message" class="help-block alert  alert-success" style="display: none;"></span>
                 <button type="button" class="btn btn-default" onclick="updateSecondMenu()" id="secondMenuSubmit">新增</button>
             </form>
         </div>

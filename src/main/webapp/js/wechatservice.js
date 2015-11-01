@@ -104,6 +104,24 @@ function updateFistMenu () {
     var menu1_type = $('#menu1_type').val();
     var menu1_answer = $('#menu1_answer').val();
     var menu1_sequence = $('#menu1_sequence').val();
+    $('#menu1_sequence_message').hide();
+    $('#menu1_content_message').hide();
+    $('#menu1_answer_message').hide();
+    if (!menu1_sequence) {
+        $('#menu1_sequence_message').text('序列不能为空!');
+        $('#menu1_sequence_message').show();
+        return;
+    }
+    if (!menu1_content) {
+        $('#menu1_content_message').text('内容不能为空!');
+        $('#menu1_content_message').show();
+        return;
+    }
+    if (menu1_type == 1 && !menu1_answer) {
+        $('#menu1_answer_message').text('答案不能为空!');
+        $('#menu1_answer_message').show();
+        return;
+    }
     var url = 'web/updateFirstMenu?content=' + menu1_content + '&type=' + menu1_type + '&answer=' + menu1_answer + '&sequence=' + menu1_sequence;
     var id = -1;
     if ($('#firstMenuSubmit').attr('firstMenuId')) {
@@ -251,6 +269,24 @@ function updateSecondMenu () {
     var menu2_answer = $('#menu2_answer').val();
     var menu2_category_id = $('#menu2_category').val();
     var menu2_sequence =  $('#menu2_sequence').val();
+    $('#menu2_sequence_message').hide();
+    $('#menu2_content_message').hide();
+    $('#menu2_answer_message').hide();
+    if (!menu2_sequence) {
+        $('#menu2_sequence_message').text('序列不能为空!');
+        $('#menu2_sequence_message').show();
+        return;
+    }
+    if (!menu2_content) {
+        $('#menu2_content_message').text('内容不能为空!');
+        $('#menu2_content_message').show();
+        return;
+    }
+    if (menu2_type == 1 && !menu2_answer) {
+        $('#menu2_answer_message').text('答案不能为空!');
+        $('#menu2_answer_message').show();
+        return;
+    }
     var url = 'web/updateSecondMenu?content=' + menu2_content + '&type=' + menu2_type + '&answer=' + menu2_answer + '&category_id=' + menu2_category_id + '&sequence=' + menu2_sequence ;
     var id = -1;
     if ($('#secondMenuSubmit').attr('secondMenuId')) {
