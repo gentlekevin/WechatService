@@ -4,6 +4,7 @@
 package com.wechatservice.web;
 
 import net.sf.json.JSONObject;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,10 @@ public class WebController {
         JSONArray result = wechatService.getDevelopers();
         return result;
     }
-
+    @RequestMapping(value="/wechat",method = {RequestMethod.GET,RequestMethod.POST})
+	public String wechat() {
+		return "/wechat";
+	}
     @RequestMapping(value = "/updateFirstMenu", method = RequestMethod.GET)
     @ResponseBody
     public JSONObject updateFirstMenu (@RequestParam("content") String content, @RequestParam("sequence") String sequence,
