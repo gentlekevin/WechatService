@@ -3,10 +3,14 @@
  */
 package com.wechatservice.web;
 
+import java.util.regex.Pattern;
+
 import net.sf.json.JSONObject;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +32,7 @@ public class WebController {
 
     private static final String SUCCESS = "success";
     private static final String DATA = "data";
-
+    private static Logger logger = LoggerFactory.getLogger(WebController.class);
     @Autowired
     private WechatService wechatService;
     
@@ -39,10 +43,7 @@ public class WebController {
         JSONArray result = wechatService.getDevelopers();
         return result;
     }
-    @RequestMapping(value="/wechat",method = {RequestMethod.GET,RequestMethod.POST})
-	public String wechat() {
-		return "/wechat";
-	}
+  
     @RequestMapping(value = "/updateFirstMenu", method = RequestMethod.GET)
     @ResponseBody
     public JSONObject updateFirstMenu (@RequestParam("content") String content, @RequestParam("sequence") String sequence,
@@ -144,12 +145,13 @@ public class WebController {
     }
     
     //-------------add by kevin begin---------------------------------------------------------
+    
     @RequestMapping(value = "/getMenu1ByMenu1Sequence", method ={ RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public JSONObject getMenu1ByMenu1Sequence (@RequestParam("menu1Sequence") String menu1Sequence) {
         JSONObject result = new JSONObject();
         JSONObject data = wechatService.getFirstMenuIdBySequen(menu1Sequence);
-       if("0".equals(data.get("type"))){
+       if("1".equals(data.get("type"))){
     	  //此时是问题 
     	   result.put(SUCCESS, false);
            result.put(DATA, data);
@@ -268,5 +270,8 @@ public class WebController {
         result.put(SUCCESS, isSuccess);
         return result;
     }
+    
+  
+    
 }
 
