@@ -1,13 +1,8 @@
 package com.wechatservice.service;
 
-import java.util.List;
-import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
 public interface WechatService {
     public JSONArray getDevelopers();
 
