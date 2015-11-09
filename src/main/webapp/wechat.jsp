@@ -29,16 +29,10 @@
 					<div class="corner"></div>
 				</div>
 			</div>
-			<div class="message right">
-				<img src="${ctx}/img/2_copy.jpg" />
-				<div class="bubble">
-					翼机通加是什么？
-				<div class="corner"></div>
-				</div>
-			</div>
+			
 		</div>
 		<div id="sendmessage">
-			<input type="text" value="Send message..." />
+			<input id="info" type="text" value="Send message..." />
 			<button id="send" class="button blue"></button>
 		</div>
 	</div>
@@ -56,15 +50,29 @@
 	            $(this).val('Send message...');
 	        }
 	    });
+	    
+	    $("#send").click(function(){
+	    	var info =$("#info").val(); 
+	    	messageOnRight(info);
+	    	
+	    	  $.get("${ctx}/wechat/getReplay?info="+info, function(result){
+	    		  var data = result.data;
+	    		    		 
+	    	    messageOnLeft(data)
+	    	  //  $('#sendmessage').scrollTop=$('#sendmessage').scrollHeight;
+	    	  });
+	    	});
+	    
+	    
 	   	});
  
   function  messageOnLeft( s){
-	return"<div class='message'> <img src='${ctx}/img/1_copy.png'/>	<div class='bubble'>"+s+
-	"<div class='corner'></div>	</div></div>";  
+	  $("#chat-messages").append( "<div class='message'> <img src='${ctx}/img/1_copy.png'/>	<div class='bubble'>"+s+
+				"<div class='corner'></div>	</div></div>");
  };
-  function  messageOnRight( string){
-	  return"<div class='message right'> <img src='${ctx}/img/1_copy.png'/>	<div class='bubble'>"+s+
-		"<div class='corner'></div>	</div></div>";  
+  function  messageOnRight(s){
+	  $("#chat-messages").append("<div class='message right'> <img src='${ctx}/img/2_copy.jpg'/>	<div class='bubble'>"+s+
+		"<div class='corner'></div>	</div></div>").show(1500);  
  };
 	
 	</script>
